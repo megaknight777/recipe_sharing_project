@@ -16,11 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from recipes import views  # Импортируем наш файл views
+from recipes import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
-    # Пустая строка '' означает главную страницу
     path('', views.home, name='home'),
+    path('register/', views.register, name='register'), # <-- Новая строка
 ]

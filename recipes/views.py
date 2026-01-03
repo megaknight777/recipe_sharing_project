@@ -1,10 +1,23 @@
-from django.shortcuts import render
-from .models import Recipe  # Импортируем нашу модель
+from django.shortcuts import render, redirect
+from .models import Recipe
+from django.contrib.auth.forms import UserCreationForm # Стандартная форма регистрации
+from django.contrib import messages
 
 def home(request):
-    # 1. Спрашиваем у базы: "Дай все объекты рецептов"
     recipes = Recipe.objects.all()
-    
-    # 2. Отдаем эти рецепты в HTML-шаблон
-    # 'recipes' (в кавычках) - это имя, по которому мы будем обращаться к списку в HTML
     return render(request, 'recipes/home.html', {'recipes': recipes})
+
+def register(request):
+    if request.method == 'POST':
+        # Если пользователь нажал кнопку "Зарегистрироваться"
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save() # Сохраняем нового пользователя в БД
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Создан аккаунт для {username}!')
+            return redirect('home') # Перенаправляем на главную
+    else:
+        # Если пользователь просто открыл страницу
+        form = UserCreationForm()
+    
+    return render(request, 'recipes/register.html', {'form': form})
