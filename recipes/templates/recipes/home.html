@@ -20,12 +20,18 @@
             <div class="col-md-6 mb-4">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
+                        
+                        {% if recipe.category %}
+                            <span class="badge bg-warning text-dark mb-2">{{ recipe.category.name }}</span>
+                        {% else %}
+                            <span class="badge bg-secondary mb-2">Без категории</span>
+                        {% endif %}
                         <h2 class="card-title h4 text-primary">{{ recipe.title }}</h2>
                         <h6 class="card-subtitle mb-2 text-muted">Автор: {{ recipe.author.username }}</h6>
                         
                         <p class="card-text">{{ recipe.description|truncatewords:20 }}</p>
                         
-                        <div class="alert alert-secondary">
+                        <div class="alert alert-secondary py-2">
                             <strong>⏱ Время:</strong> {{ recipe.cooking_time }} мин.
                         </div>
 
@@ -33,12 +39,12 @@
                         <h5>Ингредиенты:</h5>
                         <p>{{ recipe.ingredients|linebreaks }}</p>
 
-                        <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#instr{{ recipe.id }}">
+                        <button class="btn btn-outline-primary btn-sm w-100" type="button" data-bs-toggle="collapse" data-bs-target="#instr{{ recipe.id }}">
                             Показать инструкцию
                         </button>
                         
                         <div class="collapse mt-2" id="instr{{ recipe.id }}">
-                            <div class="card card-body">
+                            <div class="card card-body bg-light">
                                 {{ recipe.instructions|linebreaks }}
                             </div>
                         </div>
