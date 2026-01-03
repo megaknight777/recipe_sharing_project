@@ -10,11 +10,15 @@
         <div style="border: 1px solid black; padding: 10px; margin: 10px;">
             
             <h2>{{ recipe.title }}</h2>
-            
             <p><strong>Автор:</strong> {{ recipe.author.username }}</p>
             
             <p>{{ recipe.description }}</p>
             
+            <hr> <p><strong>Ингредиенты:</strong></p>
+            <div>{{ recipe.ingredients|linebreaks }}</div> 
+            
+            <p><strong>Инструкция:</strong></p>
+            <div>{{ recipe.instructions|linebreaks }}</div>
             <p><em>Время готовки: {{ recipe.cooking_time }} мин.</em></p>
         </div>
     {% endfor %}
