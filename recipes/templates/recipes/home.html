@@ -2,26 +2,53 @@
 <html>
 <head>
     <title>Книга Рецептов</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Наши Рецепты</h1>
+<body class="bg-light">
 
-    {% for recipe in recipes %}
-        <div style="border: 1px solid black; padding: 10px; margin: 10px;">
-            
-            <h2>{{ recipe.title }}</h2>
-            <p><strong>Автор:</strong> {{ recipe.author.username }}</p>
-            
-            <p>{{ recipe.description }}</p>
-            
-            <hr> <p><strong>Ингредиенты:</strong></p>
-            <div>{{ recipe.ingredients|linebreaks }}</div> 
-            
-            <p><strong>Инструкция:</strong></p>
-            <div>{{ recipe.instructions|linebreaks }}</div>
-            <p><em>Время готовки: {{ recipe.cooking_time }} мин.</em></p>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">🍳 RecipeShare</a>
         </div>
-    {% endfor %}
+    </nav>
 
+    <div class="container">
+        <h1 class="mb-4 text-center">Свежие рецепты</h1>
+
+        <div class="row">
+            {% for recipe in recipes %}
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h2 class="card-title h4 text-primary">{{ recipe.title }}</h2>
+                        <h6 class="card-subtitle mb-2 text-muted">Автор: {{ recipe.author.username }}</h6>
+                        
+                        <p class="card-text">{{ recipe.description|truncatewords:20 }}</p>
+                        
+                        <div class="alert alert-secondary">
+                            <strong>⏱ Время:</strong> {{ recipe.cooking_time }} мин.
+                        </div>
+
+                        <hr>
+                        <h5>Ингредиенты:</h5>
+                        <p>{{ recipe.ingredients|linebreaks }}</p>
+
+                        <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#instr{{ recipe.id }}">
+                            Показать инструкцию
+                        </button>
+                        
+                        <div class="collapse mt-2" id="instr{{ recipe.id }}">
+                            <div class="card card-body">
+                                {{ recipe.instructions|linebreaks }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

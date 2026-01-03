@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Recipe  # Импортируем нашу модель Рецепта
+from .models import Recipe, Category  # Импортируем и Категорию
 
-# Говорим админке: "Управляй и этим тоже"
 admin.site.register(Recipe)
+admin.site.register(Category) # Регистрируем
