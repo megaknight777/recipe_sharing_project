@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Recipe
 from django.contrib.auth.forms import UserCreationForm # Стандартная форма регистрации
 from django.contrib import messages
+from django.contrib.auth import logout
 
 def home(request):
     recipes = Recipe.objects.all()
@@ -21,3 +22,7 @@ def register(request):
         form = UserCreationForm()
     
     return render(request, 'recipes/register.html', {'form': form})
+
+def logout_view(request):
+    logout(request) # Стандартная команда Django "Выйти"
+    return redirect('home') # Перенаправляем на главную

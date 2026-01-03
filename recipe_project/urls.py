@@ -16,10 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth import views as auth_views # 1. Импортируем стандартные вьюшки
 from recipes import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('register/', views.register, name='register'), # <-- Новая строка
+    path('register/', views.register, name='register'),
+    
+    # 2. МАРШРУТ ДЛЯ ВХОДА (Используем готовый класс Django, но указываем наш шаблон)
+    path('login/', auth_views.LoginView.as_view(template_name='recipes/login.html'), name='login'),
+    
+    # 3. МАРШРУТ ДЛЯ ВЫХОДА (Напишем сами в views.py)
+    path('logout/', views.logout_view, name='logout'),
 ]
