@@ -1,0 +1,13 @@
+# Python
+*.pyc
+__pycache__/
+
+# Virtual Environment (САМОЕ ВАЖНОЕ)
+venv/
+env/
+
+# Database
+db.sqlite3
+
+# OS junk
+.DS_Store
